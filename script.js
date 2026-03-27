@@ -90,7 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .reveal.from-right { transform: translateX(40px); }
     .reveal.visible { opacity: 1 !important; transform: none !important; }
     .stagger-child { opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .stagger-child.visible { opacity: 1; transform: none; }
+    .stagger-child.visible { opacity: 1 !important; transform: none !important; }
+    @media (max-width: 767px) {
+      .reveal, .stagger-child { opacity: 1 !important; transform: none !important; }
+    }
   `;
   document.head.appendChild(revealStyle);
 
@@ -105,12 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
     el.classList.add('stagger-child');
     el.style.transitionDelay = (i % 3) * 0.1 + 's';
   });
-  document.querySelectorAll('#experience .bg-\\[\\#1A1A1A\\]').forEach(el => el.classList.add('reveal'));
+  // Experience card — use direct child selector instead of class
+  const expCard = document.querySelector('#experience .rounded-3xl');
+  if (expCard) expCard.classList.add('reveal');
   document.querySelectorAll('#testimonials .min-w-\\[300px\\]').forEach((el, i) => {
     el.classList.add('stagger-child');
     el.style.transitionDelay = i * 0.15 + 's';
   });
-  document.querySelectorAll('#contact .flex.flex-col, #contact .bg-\\[\\#1A1A1A\\].border').forEach((el, i) => {
+  document.querySelectorAll('#contact .flex.flex-col, #contact .rounded-2xl').forEach((el, i) => {
     el.classList.add('reveal');
     el.classList.add(i === 0 ? 'from-left' : 'from-right');
   });
@@ -122,9 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.reveal, .stagger-child').forEach(el => observer.observe(el));
+
+  // Safety fallback — agar observer kisi element ko miss kare toh 3s baad sab visible kar do
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible), .stagger-child:not(.visible)').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 3000);
 
   // ===== PARTICLE STARS =====
   const heroSection = document.querySelector('#home');
