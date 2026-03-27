@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('#experience .text-3xl.font-display').forEach(el => counterObserver.observe(el));
+  document.querySelectorAll('#experience .grid .text-3xl.font-display').forEach(el => counterObserver.observe(el));
 
   // ===== RESUME DOWNLOAD BUTTON =====
   const heroButtons2 = document.querySelector('#home .flex.flex-wrap.items-center');
