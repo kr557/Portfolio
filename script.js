@@ -279,13 +279,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== COUNTER ANIMATION =====
   function animateCounter(el, target, suffix = '') {
     let start = 0;
-    const duration = 1500;
+    const duration = 1800;
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - Math.pow(1 - progress, 4);
       el.textContent = Math.floor(eased * target) + suffix;
       if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + suffix;
     };
     requestAnimationFrame(step);
   }
@@ -295,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const text = el.textContent.trim();
+        el.textContent = '0';
         if (text === '4+') animateCounter(el, 4, '+');
         else if (text === '20+') animateCounter(el, 20, '+');
         else if (text === '13+') animateCounter(el, 13, '+');
@@ -302,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
         counterObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
 
   document.querySelectorAll('#experience .text-3xl.font-display').forEach(el => counterObserver.observe(el));
 
@@ -330,35 +332,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== PROJECT FILTER =====
   const filterBtns = document.querySelectorAll('#projects .flex.flex-wrap.gap-2 button');
-  const projectCards = document.querySelectorAll('#projects .grid .group');
-
-  // Tag each card with a data-category based on its tag text
-  projectCards.forEach(card => {
-    const tags = card.textContent;
-    if (/Graphic|Poster|Branding/i.test(tags)) card.dataset.cat = 'graphic';
-    else if (/UI\/UX|Figma|SaaS|Dashboard|Prototype/i.test(tags)) card.dataset.cat = 'uiux';
-    else if (/Web|HTML|Responsive|Healthcare|Branding/i.test(tags)) card.dataset.cat = 'html';
-    else card.dataset.cat = 'uiux';
-  });
+  const projectCards = document.querySelectorAll('#projects .grid [data-cat]');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Update active button style
       filterBtns.forEach(b => {
-        b.style.cssText = 'background:transparent;color:#B0B0B0;border-color:#2A2A2A;';
+        b.style.background = 'transparent';
+        b.style.color = '#B0B0B0';
+        b.style.borderColor = '#2A2A2A';
       });
-      btn.style.cssText = 'background:#FE8551;color:#000;border-color:#FE8551;';
+      btn.style.background = '#FE8551';
+      btn.style.color = '#000';
+      btn.style.borderColor = '#FE8551';
 
       const label = btn.textContent.trim();
+
       projectCards.forEach(card => {
+        const cat = card.dataset.cat;
         let show = true;
-        if (label.includes('HTML')) show = card.dataset.cat === 'html';
-        else if (label.includes('UI/UX')) show = card.dataset.cat === 'uiux';
-        else if (label.includes('Graphic')) show = card.dataset.cat === 'graphic';
-        card.style.transition = 'opacity 0.3s, transform 0.3s';
-        card.style.opacity = show ? '1' : '0.2';
-        card.style.transform = show ? '' : 'scale(0.97)';
-        card.style.pointerEvents = show ? '' : 'none';
+        if (label.includes('HTML') || label.includes('Development')) show = cat === 'html';
+        else if (label.includes('UI/UX')) show = cat === 'uiux';
+        else if (label.includes('Graphic') || label.includes('Poster')) show = cat === 'graphic';
+
+        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        if (show) {
+          card.style.opacity = '1';
+          card.style.transform = '';
+          card.style.display = '';
+          card.style.pointerEvents = '';
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+          card.style.pointerEvents = 'none';
+          setTimeout(() => {
+            if (card.style.opacity === '0') card.style.display = 'none';
+          }, 300);
+        }
       });
     });
   });
