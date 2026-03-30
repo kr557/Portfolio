@@ -330,7 +330,88 @@ document.addEventListener('DOMContentLoaded', () => {
     backToTop.classList.toggle('visible', window.scrollY > 400);
   });
 
-  // ===== PROJECT FILTER =====
+  // ===== HTML PROJECTS DYNAMIC RENDER =====
+  const htmlProjects = [
+    { img: 'img/Project/html/Appoosto.png', title: 'Appoosto', desc: 'Clean and modern web UI for the Appoosto platform.' },
+    { img: 'img/Project/html/fledger.png', title: 'Fledger', desc: 'Expense management web app with intuitive UI.' },
+    { img: 'img/Project/html/glukk.png', title: 'Glukk', desc: 'Engaging web interface with smooth user experience.' },
+    { img: 'img/Project/html/Pmaps.png', title: 'Pmaps', desc: 'Interactive mapping platform with clean layout.' },
+    { img: 'img/Project/html/prestige.png', title: 'Prestige', desc: 'Luxury brand website with premium design.' },
+    { img: 'img/Project/html/Restaurant.png', title: 'Restaurant', desc: 'Food ordering website with appetizing UI.' },
+    { img: 'img/Project/html/topvabor.png', title: 'TopVabor', desc: 'SaaS web platform with modern responsive design.' },
+    { img: 'img/Project/html/traderhub.png', title: 'TraderHub', desc: 'Trading platform website with data-rich UI.' }
+  ];
+
+  // ===== FIGMA PROJECTS DYNAMIC RENDER =====
+  const figmaProjects = [
+    { img: 'img/Project/figma/Appoosto.png', title: 'Appoosto App', desc: 'Modern mobile app UI with clean UX and smooth navigation.' },
+    { img: 'img/Project/figma/Finance and Budget.png', title: 'Finance & Budget', desc: 'Personal finance dashboard with analytics and insights.' },
+    { img: 'img/Project/figma/Finance and Budget-1.png', title: 'Finance & Budget Pro', desc: 'Advanced budget planner with detailed expense tracking.' },
+    { img: 'img/Project/figma/fledger.png', title: 'Fledger App', desc: 'Expense management app with smart tracking features.' },
+    { img: 'img/Project/figma/my magice moments.png', title: 'My Magic Moments', desc: 'Memory and moments app with beautiful visual design.' },
+    { img: 'img/Project/figma/prestige.png', title: 'Prestige UI', desc: 'Luxury brand UI design with premium user experience.' },
+    { img: 'img/Project/figma/Restaurant.png', title: 'Restaurant App', desc: 'Food ordering app with clean UI and fast user flow.' },
+    { img: 'img/Project/figma/Solar App.png', title: 'Solar App', desc: 'Energy monitoring dashboard with usage insights.' },
+    { img: 'img/Project/figma/topvabor.png', title: 'TopVabor', desc: 'Modern SaaS dashboard UI with intuitive navigation.' },
+    { img: 'img/Project/figma/traderhub.png', title: 'TraderHub', desc: 'Trading platform UI with real-time data visualization.' }
+  ];
+
+  const projectsGrid = document.querySelector('#projects .grid');
+  if (projectsGrid) {
+    // Remove existing uiux cards
+    projectsGrid.querySelectorAll('[data-cat="uiux"]').forEach(el => el.remove());
+
+    // Prepend figma cards
+    const fragment = document.createDocumentFragment();
+    figmaProjects.forEach(p => {
+      const card = document.createElement('div');
+      card.dataset.cat = 'uiux';
+      card.className = 'group relative bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1.5 hover:border-[#FE8551]/30 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300';
+      card.innerHTML = `
+        <div class="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
+          <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+          <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+            <a href="#" class="px-5 py-2.5 bg-[#FE8551] text-black text-sm font-semibold rounded-xl translate-y-3 group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#FF9A6A]">View Case Study</a>
+          </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[#0F0F0F] text-[#B0B0B0] border border-[#2A2A2A]">UI/UX</span>
+            <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[#0F0F0F] text-[#B0B0B0] border border-[#2A2A2A]">Figma</span>
+          </div>
+          <h3 class="text-base font-display font-semibold text-white mb-2 group-hover:text-[#FE8551] transition-colors duration-300">${p.title}</h3>
+          <p class="text-[#B0B0B0] text-sm leading-relaxed flex-grow">${p.desc}</p>
+        </div>`;
+      fragment.appendChild(card);
+    });
+    projectsGrid.insertBefore(fragment, projectsGrid.firstChild);
+
+    // Remove existing html cards and render from array
+    projectsGrid.querySelectorAll('[data-cat="html"]').forEach(el => el.remove());
+    const htmlFragment = document.createDocumentFragment();
+    htmlProjects.forEach(p => {
+      const card = document.createElement('div');
+      card.dataset.cat = 'html';
+      card.className = 'group relative bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1.5 hover:border-[#FE8551]/30 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300';
+      card.innerHTML = `
+        <div class="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
+          <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+          <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+            <a href="#" class="px-5 py-2.5 bg-[#FE8551] text-black text-sm font-semibold rounded-xl translate-y-3 group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#FF9A6A]">View Project</a>
+          </div>
+        </div>
+        <div class="p-6 flex-grow flex flex-col">
+          <div class="flex flex-wrap gap-1.5 mb-4">
+            <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[#0F0F0F] text-[#B0B0B0] border border-[#2A2A2A]">HTML</span>
+            <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[#0F0F0F] text-[#B0B0B0] border border-[#2A2A2A]">CSS</span>
+          </div>
+          <h3 class="text-base font-display font-semibold text-white mb-2 group-hover:text-[#FE8551] transition-colors duration-300">${p.title}</h3>
+          <p class="text-[#B0B0B0] text-sm leading-relaxed flex-grow">${p.desc}</p>
+        </div>`;
+      htmlFragment.appendChild(card);
+    });
+    projectsGrid.appendChild(htmlFragment);
+  }
   const filterBtns = document.querySelectorAll('#projects .flex.flex-wrap.gap-2 button');
   const projectCards = document.querySelectorAll('#projects .grid [data-cat]');
 
