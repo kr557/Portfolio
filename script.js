@@ -510,6 +510,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ===== LIGHTBOX POPUP =====
+  const lightbox = document.createElement('div');
+  lightbox.id = 'lightbox';
+  lightbox.innerHTML = `
+    <div id="lightbox-overlay"></div>
+    <div id="lightbox-content">
+      <button id="lightbox-close">&times;</button>
+      <button id="lightbox-prev">&#8249;</button>
+      <img id="lightbox-img" src="" alt="">
+      <button id="lightbox-next">&#8250;</button>
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  let lightboxImages = [];
+  let lightboxIndex = 0;
+
+  function openLightbox(images, index) {
+    lightboxImages = images;
+    lightboxIndex = index;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-overlay').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', () => {
+    lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+  });
+  document.getElementById('lightbox-next').addEventListener('click', () => {
+    lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') document.getElementById('lightbox-prev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+  });
+
+  // Attach lightbox to project cards
+  function attachLightbox() {
+    projectsGrid.querySelectorAll('[data-cat]').forEach(card => {
+      const img = card.querySelector('img');
+      const btn = card.querySelector('a');
+      if (!img || !btn || btn.dataset.lightbox) return;
+      btn.dataset.lightbox = 'true';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cat = card.dataset.cat;
+        const allImgs = Array.from(projectsGrid.querySelectorAll(`[data-cat="${cat}"] img`)).map(i => i.src).filter(Boolean);
+        const idx = allImgs.indexOf(img.src);
+        openLightbox(allImgs, idx >= 0 ? idx : 0);
+      });
+    });
+  }
+
+  // Call after cards are rendered
+  setTimeout(attachLightbox, 100);
+
   // ===== TESTIMONIALS AUTO-SCROLL =====
   const testimonialsTrack = document.querySelector('#testimonials .flex.overflow-x-auto');
   if (testimonialsTrack) {
@@ -682,5 +749,41 @@ globalStyle.textContent = `
     transition: transform 0.2s, box-shadow 0.2s;
   }
   #wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(37,211,102,0.6); }
+  #lightbox {
+    display: none; position: fixed; inset: 0; z-index: 99999;
+    align-items: center; justify-content: center;
+  }
+  #lightbox.active { display: flex; }
+  #lightbox-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(8px);
+  }
+  #lightbox-content {
+    position: relative; z-index: 1; display: flex; align-items: center;
+    gap: 16px; max-width: 90vw; max-height: 90vh;
+  }
+  #lightbox-img {
+    max-width: 80vw; max-height: 85vh;
+    border-radius: 16px; object-fit: contain;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    border: 1px solid rgba(254,133,81,0.2);
+  }
+  #lightbox-close {
+    position: fixed; top: 20px; right: 24px;
+    background: rgba(254,133,81,0.15); border: 1px solid rgba(254,133,81,0.3);
+    color: #fff; font-size: 28px; width: 44px; height: 44px;
+    border-radius: 50%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; line-height: 1;
+    transition: background 0.2s;
+  }
+  #lightbox-close:hover { background: rgba(254,133,81,0.35); }
+  #lightbox-prev, #lightbox-next {
+    background: rgba(254,133,81,0.15); border: 1px solid rgba(254,133,81,0.3);
+    color: #fff; font-size: 32px; width: 48px; height: 48px;
+    border-radius: 50%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  #lightbox-prev:hover, #lightbox-next:hover { background: rgba(254,133,81,0.35); }
 `;
 document.head.appendChild(globalStyle);
