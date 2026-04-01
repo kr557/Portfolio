@@ -334,26 +334,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const htmlProjects = [
     { img: 'img/Project/html/Appoosto.png', title: 'Appoosto', desc: 'Clean and modern web UI for the Appoosto platform.' },
     { img: 'img/Project/html/fledger.png', title: 'Fledger', desc: 'Expense management web app with intuitive UI.' },
+    { img: 'img/Project/html/gahari.png', title: 'Gahari', desc: 'Elegant web design with rich visual storytelling.' },
+    { img: 'img/Project/html/geomedium.png', title: 'Geomedium', desc: 'Geo-based platform with clean and functional UI.' },
     { img: 'img/Project/html/glukk.png', title: 'Glukk', desc: 'Engaging web interface with smooth user experience.' },
+    { img: 'img/Project/html/Hotel jobs.png', title: 'Hotel Jobs', desc: 'Job portal for hospitality industry with easy navigation.' },
+    { img: 'img/Project/html/jobportal.png', title: 'Job Portal', desc: 'Feature-rich job listing platform with advanced filters.' },
+    { img: 'img/Project/html/lalit khatri photography.png', title: 'Lalit Khatri Photography', desc: 'Portfolio website for a professional photographer.' },
+    { img: 'img/Project/html/lemur technologies.png', title: 'Lemur Technologies', desc: 'Tech company website with modern branding.' },
+    { img: 'img/Project/html/luneta..png', title: 'Luneta', desc: 'Stylish web presence with clean layout and typography.' },
     { img: 'img/Project/html/Pmaps.png', title: 'Pmaps', desc: 'Interactive mapping platform with clean layout.' },
     { img: 'img/Project/html/prestige.png', title: 'Prestige', desc: 'Luxury brand website with premium design.' },
+    { img: 'img/Project/html/prestige 2.png', title: 'Prestige 2', desc: 'Updated luxury brand UI with refined visual style.' },
     { img: 'img/Project/html/Restaurant.png', title: 'Restaurant', desc: 'Food ordering website with appetizing UI.' },
+    { img: 'img/Project/html/themegasolutions.png', title: 'The Mega Solutions', desc: 'Corporate solutions website with professional layout.' },
     { img: 'img/Project/html/topvabor.png', title: 'TopVabor', desc: 'SaaS web platform with modern responsive design.' },
     { img: 'img/Project/html/traderhub.png', title: 'TraderHub', desc: 'Trading platform website with data-rich UI.' }
   ];
 
   // ===== FIGMA PROJECTS DYNAMIC RENDER =====
   const figmaProjects = [
-    { img: 'img/Project/figma/Appoosto.png', title: 'Appoosto App', desc: 'Modern mobile app UI with clean UX and smooth navigation.' },
-    { img: 'img/Project/figma/Finance and Budget.png', title: 'Finance & Budget', desc: 'Personal finance dashboard with analytics and insights.' },
-    { img: 'img/Project/figma/Finance and Budget-1.png', title: 'Finance & Budget Pro', desc: 'Advanced budget planner with detailed expense tracking.' },
-    { img: 'img/Project/figma/fledger.png', title: 'Fledger App', desc: 'Expense management app with smart tracking features.' },
-    { img: 'img/Project/figma/my magice moments.png', title: 'My Magic Moments', desc: 'Memory and moments app with beautiful visual design.' },
-    { img: 'img/Project/figma/prestige.png', title: 'Prestige UI', desc: 'Luxury brand UI design with premium user experience.' },
-    { img: 'img/Project/figma/Restaurant.png', title: 'Restaurant App', desc: 'Food ordering app with clean UI and fast user flow.' },
-    { img: 'img/Project/figma/Solar App.png', title: 'Solar App', desc: 'Energy monitoring dashboard with usage insights.' },
-    { img: 'img/Project/figma/topvabor.png', title: 'TopVabor', desc: 'Modern SaaS dashboard UI with intuitive navigation.' },
-    { img: 'img/Project/figma/traderhub.png', title: 'TraderHub', desc: 'Trading platform UI with real-time data visualization.' }
+    { img: 'img/Project/mobile/Finance and Budget.png', title: 'Finance & Budget Mobile', desc: 'Mobile finance app with clean budgeting interface.' },
+    { img: 'img/Project/mobile/ForexBull.png', title: 'ForexBull', desc: 'Forex trading mobile app with live market data UI.' },
+    { img: 'img/Project/mobile/founders hub.png', title: 'Founders Hub', desc: 'Startup community app for founders and entrepreneurs.' },
+    { img: 'img/Project/mobile/Gr8niteout.png', title: 'Gr8niteout', desc: 'Nightlife discovery app with vibrant visual design.' },
+    { img: 'img/Project/mobile/Loan Approval.png', title: 'Loan Approval', desc: 'Fintech app for quick loan applications and approvals.' },
+    { img: 'img/Project/mobile/Shopislive.png', title: 'Shopislive', desc: 'Live shopping app with engaging product discovery UI.' },
+    { img: 'img/Project/mobile/Smilestone.png', title: 'Smilestone', desc: 'Dental care app with appointment and wellness tracking.' },
+    { img: 'img/Project/mobile/Solar App.png', title: 'Solar App Mobile', desc: 'Solar energy monitoring app with usage analytics.' },
+    { img: 'img/Project/mobile/SpeakCue.png', title: 'SpeakCue', desc: 'Public speaking coach app with real-time feedback UI.' },
+    { img: 'img/Project/mobile/TreaderHub.png', title: 'TreaderHub Mobile', desc: 'Mobile trading platform with intuitive data visualization.' },
+    { img: 'img/Project/mobile/Vivahab.png', title: 'Vivahab', desc: 'Wedding planning app with elegant and warm UI design.' }
   ];
 
   const projectsGrid = document.querySelector('#projects .grid');
@@ -411,6 +421,53 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlFragment.appendChild(card);
     });
     projectsGrid.appendChild(htmlFragment);
+
+    // Remove existing graphic cards and render from post images
+    projectsGrid.querySelectorAll('[data-cat="graphic"]').forEach(el => el.remove());
+    const postImages = [
+      'img/Project/post/Desktop - 1 1.png',
+      'img/Project/post/Desktop - 1 2.png',
+      'img/Project/post/Desktop - 1 3.png',
+      'img/Project/post/Desktop - 1 4.png',
+      'img/Project/post/Desktop - 1 5.png',
+      'img/Project/post/Desktop - 1 6.png',
+      'img/Project/post/Desktop - 1 7.png',
+      'img/Project/post/Desktop - 1 8.png',
+      'img/Project/post/Frame 1 8.png',
+      'img/Project/post/Frame 1 9.png',
+      'img/Project/post/Frame 1 10.png',
+      'img/Project/post/Frame 1 11.png',
+      'img/Project/post/Frame 6848 1.png',
+      'img/Project/post/Frame 6848 2.png',
+      'img/Project/post/Frame 6848 3.png',
+      'img/Project/post/Frame 6848 4.png'
+    ];
+    const graphicFragment = document.createDocumentFragment();
+    postImages.forEach((imgPath, i) => {
+      const card = document.createElement('div');
+      card.dataset.cat = 'graphic';
+      card.className = 'group relative bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1.5 hover:border-[#FE8551]/30 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300';
+      card.innerHTML = `
+        <div class="relative w-full aspect-[4/3] overflow-hidden">
+          <img data-src="${imgPath}" alt="Graphic Design ${i + 1}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" decoding="async">
+          <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+            <a href="${imgPath}" target="_blank" class="px-5 py-2.5 bg-[#FE8551] text-black text-sm font-semibold rounded-xl translate-y-3 group-hover:translate-y-0 transition-transform duration-300 hover:bg-[#FF9A6A]">View Design</a>
+          </div>
+        </div>`;
+      graphicFragment.appendChild(card);
+    });
+    projectsGrid.appendChild(graphicFragment);
+
+    const lazyImgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          lazyImgObserver.unobserve(img);
+        }
+      });
+    }, { rootMargin: '200px' });
+    projectsGrid.querySelectorAll('[data-cat="graphic"] img[data-src]').forEach(img => lazyImgObserver.observe(img));
   }
   const filterBtns = document.querySelectorAll('#projects .flex.flex-wrap.gap-2 button');
   const projectCards = document.querySelectorAll('#projects .grid [data-cat]');
