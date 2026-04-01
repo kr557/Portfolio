@@ -470,43 +470,76 @@ document.addEventListener('DOMContentLoaded', () => {
     projectsGrid.querySelectorAll('[data-cat="graphic"] img[data-src]').forEach(img => lazyImgObserver.observe(img));
   }
   const filterBtns = document.querySelectorAll('#projects .flex.flex-wrap.gap-2 button');
-  const projectCards = document.querySelectorAll('#projects .grid [data-cat]');
+
+  function showCard(card) {
+    card.style.display = 'flex';
+    card.style.opacity = '1';
+    card.style.transform = '';
+    card.style.pointerEvents = '';
+  }
+  function hideCard(card) {
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.95)';
+    card.style.pointerEvents = 'none';
+    setTimeout(() => { if (card.style.opacity === '0') card.style.display = 'none'; }, 300);
+  }
+
+  function applyFilter(label) {
+    const allCards = Array.from(projectsGrid.querySelectorAll('[data-cat]'));
+    const isMobile = window.innerWidth < 1024;
+    let viewAllBtn = document.getElementById('view-all-btn');
+
+    allCards.forEach(card => { card.style.transition = 'opacity 0.3s ease, transform 0.3s ease'; });
+
+    if (label === 'All') {
+      const counts = { html: 0, uiux: 0, graphic: 0 };
+      const limit = isMobile ? 1 : 3;
+      allCards.forEach(card => {
+        const cat = card.dataset.cat;
+        if (counts[cat] < limit) { counts[cat]++; showCard(card); }
+        else hideCard(card);
+      });
+
+      if (isMobile) {
+        if (!viewAllBtn) {
+          viewAllBtn = document.createElement('button');
+          viewAllBtn.id = 'view-all-btn';
+          viewAllBtn.textContent = 'View All Projects';
+          viewAllBtn.className = 'mt-8 px-8 py-3 rounded-xl bg-[#FE8551] text-black font-semibold text-sm hover:bg-[#FF9A6A] transition-all duration-200 mx-auto block';
+          projectsGrid.after(viewAllBtn);
+          viewAllBtn.addEventListener('click', () => {
+            allCards.forEach(card => showCard(card));
+            viewAllBtn.remove();
+            setTimeout(attachLightbox, 50);
+          });
+        }
+        viewAllBtn.style.display = 'block';
+      } else {
+        if (viewAllBtn) viewAllBtn.remove();
+      }
+    } else {
+      if (viewAllBtn) viewAllBtn.remove();
+      allCards.forEach(card => {
+        const cat = card.dataset.cat;
+        let show = false;
+        if (label.includes('HTML') || label.includes('Development')) show = cat === 'html';
+        else if (label.includes('Mobile')) show = cat === 'uiux';
+        else if (label.includes('Graphic') || label.includes('Poster')) show = cat === 'graphic';
+        show ? showCard(card) : hideCard(card);
+      });
+    }
+  }
+
+  applyFilter('All');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => {
-        b.style.background = 'transparent';
-        b.style.color = '#B0B0B0';
-        b.style.borderColor = '#2A2A2A';
-      });
+      filterBtns.forEach(b => { b.style.background = 'transparent'; b.style.color = '#B0B0B0'; b.style.borderColor = '#2A2A2A'; });
       btn.style.background = '#FE8551';
       btn.style.color = '#000';
       btn.style.borderColor = '#FE8551';
-
-      const label = btn.textContent.trim();
-
-      projectCards.forEach(card => {
-        const cat = card.dataset.cat;
-        let show = true;
-        if (label.includes('HTML') || label.includes('Development')) show = cat === 'html';
-        else if (label.includes('UI/UX')) show = cat === 'uiux';
-        else if (label.includes('Graphic') || label.includes('Poster')) show = cat === 'graphic';
-
-        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        if (show) {
-          card.style.opacity = '1';
-          card.style.transform = '';
-          card.style.display = '';
-          card.style.pointerEvents = '';
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.95)';
-          card.style.pointerEvents = 'none';
-          setTimeout(() => {
-            if (card.style.opacity === '0') card.style.display = 'none';
-          }, 300);
-        }
-      });
+      applyFilter(btn.textContent.trim());
+      setTimeout(attachLightbox, 50);
     });
   });
 
