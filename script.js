@@ -316,7 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeBtn.download = 'Krishan_Joshi_Resume.pdf';
     resumeBtn.id = 'resume-btn';
     resumeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Resume`;
-    heroButtons2.appendChild(resumeBtn);
+
+    const portfolioBtn = document.createElement('a');
+    portfolioBtn.href = './Krishan_Joshi_Portfolio.pdf';
+    portfolioBtn.download = 'Krishan_Joshi_Portfolio.pdf';
+    portfolioBtn.id = 'portfolio-btn';
+    portfolioBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Portfolio`;
+
+    const btnWrapper = document.createElement('div');
+    btnWrapper.style.cssText = 'display:flex; gap:12px; flex-wrap:wrap;';
+    btnWrapper.appendChild(resumeBtn);
+    btnWrapper.appendChild(portfolioBtn);
+    heroButtons2.appendChild(btnWrapper);
   }
 
   // ===== BACK TO TOP BUTTON =====
@@ -332,38 +343,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== HTML PROJECTS DYNAMIC RENDER =====
   const htmlProjects = [
-    { img: 'img/Project/html/Appoosto.png', title: 'Appoosto', desc: 'Clean and modern web UI for the Appoosto platform.' },
-    { img: 'img/Project/html/fledger.png', title: 'Fledger', desc: 'Expense management web app with intuitive UI.' },
-    { img: 'img/Project/html/gahari.png', title: 'Gahari', desc: 'Elegant web design with rich visual storytelling.' },
-    { img: 'img/Project/html/geomedium.png', title: 'Geomedium', desc: 'Geo-based platform with clean and functional UI.' },
-    { img: 'img/Project/html/glukk.png', title: 'Glukk', desc: 'Engaging web interface with smooth user experience.' },
-    { img: 'img/Project/html/Hotel jobs.png', title: 'Hotel Jobs', desc: 'Job portal for hospitality industry with easy navigation.' },
-    { img: 'img/Project/html/jobportal.png', title: 'Job Portal', desc: 'Feature-rich job listing platform with advanced filters.' },
-    { img: 'img/Project/html/lalit khatri photography.png', title: 'Lalit Khatri Photography', desc: 'Portfolio website for a professional photographer.' },
-    { img: 'img/Project/html/lemur technologies.png', title: 'Lemur Technologies', desc: 'Tech company website with modern branding.' },
-    { img: 'img/Project/html/luneta..png', title: 'Luneta', desc: 'Stylish web presence with clean layout and typography.' },
-    { img: 'img/Project/html/Pmaps.png', title: 'Pmaps', desc: 'Interactive mapping platform with clean layout.' },
-    { img: 'img/Project/html/prestige.png', title: 'Prestige', desc: 'Luxury brand website with premium design.' },
-    { img: 'img/Project/html/prestige 2.png', title: 'Prestige 2', desc: 'Updated luxury brand UI with refined visual style.' },
-    { img: 'img/Project/html/Restaurant.png', title: 'Restaurant', desc: 'Food ordering website with appetizing UI.' },
-    { img: 'img/Project/html/themegasolutions.png', title: 'The Mega Solutions', desc: 'Corporate solutions website with professional layout.' },
-    { img: 'img/Project/html/topvabor.png', title: 'TopVabor', desc: 'SaaS web platform with modern responsive design.' },
-    { img: 'img/Project/html/traderhub.png', title: 'TraderHub', desc: 'Trading platform website with data-rich UI.' }
+    { img: 'img/Project/html/Appoosto.webp', title: 'Appoosto', desc: 'Clean and modern web UI for the Appoosto platform.' },
+    { img: 'img/Project/html/fledger.webp', title: 'Fledger', desc: 'Expense management web app with intuitive UI.' },
+    { img: 'img/Project/html/gahari.webp', title: 'Gahari', desc: 'Elegant web design with rich visual storytelling.' },
+    { img: 'img/Project/html/geomedium.webp', title: 'Geomedium', desc: 'Geo-based platform with clean and functional UI.' },
+    { img: 'img/Project/html/glukk.webp', title: 'Glukk', desc: 'Engaging web interface with smooth user experience.' },
+    { img: 'img/Project/html/Hotel jobs.webp', title: 'Hotel Jobs', desc: 'Job portal for hospitality industry with easy navigation.' },
+    { img: 'img/Project/html/jobportal.webp', title: 'Job Portal', desc: 'Feature-rich job listing platform with advanced filters.' },
+    { img: 'img/Project/html/lalit khatri photography.webp', title: 'Lalit Khatri Photography', desc: 'Portfolio website for a professional photographer.' },
+    { img: 'img/Project/html/lemur technologies.webp', title: 'Lemur Technologies', desc: 'Tech company website with modern branding.' },
+    { img: 'img/Project/html/luneta.webp', title: 'Luneta', desc: 'Stylish web presence with clean layout and typography.' },
+    { img: 'img/Project/html/Pmaps.webp', title: 'Pmaps', desc: 'Interactive mapping platform with clean layout.' },
+    { img: 'img/Project/html/prestige.webp', title: 'Prestige', desc: 'Luxury brand website with premium design.' },
+    { img: 'img/Project/html/prestige 2.webp', title: 'Prestige 2', desc: 'Updated luxury brand UI with refined visual style.' },
+    { img: 'img/Project/html/Restaurant.webp', title: 'Restaurant', desc: 'Food ordering website with appetizing UI.' },
+    { img: 'img/Project/html/themegasolutions.webp', title: 'The Mega Solutions', desc: 'Corporate solutions website with professional layout.' },
+    { img: 'img/Project/html/topvabor.webp', title: 'TopVabor', desc: 'SaaS web platform with modern responsive design.' },
+    { img: 'img/Project/html/traderhub.webp', title: 'TraderHub', desc: 'Trading platform website with data-rich UI.' }
   ];
 
   // ===== FIGMA PROJECTS DYNAMIC RENDER =====
   const figmaProjects = [
-    { img: 'img/Project/mobile/Finance and Budget.png', title: 'Finance & Budget Mobile', desc: 'Mobile finance app with clean budgeting interface.' },
-    { img: 'img/Project/mobile/ForexBull.png', title: 'ForexBull', desc: 'Forex trading mobile app with live market data UI.' },
-    { img: 'img/Project/mobile/founders hub.png', title: 'Founders Hub', desc: 'Startup community app for founders and entrepreneurs.' },
-    { img: 'img/Project/mobile/Gr8niteout.png', title: 'Gr8niteout', desc: 'Nightlife discovery app with vibrant visual design.' },
-    { img: 'img/Project/mobile/Loan Approval.png', title: 'Loan Approval', desc: 'Fintech app for quick loan applications and approvals.' },
-    { img: 'img/Project/mobile/Shopislive.png', title: 'Shopislive', desc: 'Live shopping app with engaging product discovery UI.' },
-    { img: 'img/Project/mobile/Smilestone.png', title: 'Smilestone', desc: 'Dental care app with appointment and wellness tracking.' },
-    { img: 'img/Project/mobile/Solar App.png', title: 'Solar App Mobile', desc: 'Solar energy monitoring app with usage analytics.' },
-    { img: 'img/Project/mobile/SpeakCue.png', title: 'SpeakCue', desc: 'Public speaking coach app with real-time feedback UI.' },
-    { img: 'img/Project/mobile/TreaderHub.png', title: 'TreaderHub Mobile', desc: 'Mobile trading platform with intuitive data visualization.' },
-    { img: 'img/Project/mobile/Vivahab.png', title: 'Vivahab', desc: 'Wedding planning app with elegant and warm UI design.' }
+    { img: 'img/Project/mobile/Finance and Budget.webp', title: 'Finance & Budget Mobile', desc: 'Mobile finance app with clean budgeting interface.' },
+    { img: 'img/Project/mobile/ForexBull.webp', title: 'ForexBull', desc: 'Forex trading mobile app with live market data UI.' },
+    { img: 'img/Project/mobile/founders hub.webp', title: 'Founders Hub', desc: 'Startup community app for founders and entrepreneurs.' },
+    { img: 'img/Project/mobile/Gr8niteout.webp', title: 'Gr8niteout', desc: 'Nightlife discovery app with vibrant visual design.' },
+    { img: 'img/Project/mobile/Loan Approval.webp', title: 'Loan Approval', desc: 'Fintech app for quick loan applications and approvals.' },
+    { img: 'img/Project/mobile/Shopislive.webp', title: 'Shopislive', desc: 'Live shopping app with engaging product discovery UI.' },
+    { img: 'img/Project/mobile/Smilestone.webp', title: 'Smilestone', desc: 'Dental care app with appointment and wellness tracking.' },
+    { img: 'img/Project/mobile/Solar App.webp', title: 'Solar App Mobile', desc: 'Solar energy monitoring app with usage analytics.' },
+    { img: 'img/Project/mobile/SpeakCue.webp', title: 'SpeakCue', desc: 'Public speaking coach app with real-time feedback UI.' },
+    { img: 'img/Project/mobile/TreaderHub.webp', title: 'TreaderHub Mobile', desc: 'Mobile trading platform with intuitive data visualization.' },
+    { img: 'img/Project/mobile/Vivahab.webp', title: 'Vivahab', desc: 'Wedding planning app with elegant and warm UI design.' }
   ];
 
   const projectsGrid = document.querySelector('#projects .grid');
@@ -748,14 +759,14 @@ globalStyle.textContent = `
   @keyframes ripple {
     to { transform: scale(30); opacity: 0; }
   }
-  #resume-btn {
+  #resume-btn, #portfolio-btn {
     display: inline-flex; align-items: center; gap: 7px;
     height: 48px; padding: 0 24px; border-radius: 12px;
     border: 1px solid #2A2A2A; color: #B0B0B0;
     font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif;
     text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
   }
-  #resume-btn:hover {
+  #resume-btn:hover, #portfolio-btn:hover {
     border-color: rgba(254,133,81,0.5);
     color: #FE8551;
     background: rgba(254,133,81,0.06);
