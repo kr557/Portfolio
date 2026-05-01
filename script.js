@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = entry.target;
         const text = el.textContent.trim();
         el.textContent = '0';
-        if (text === '4+') animateCounter(el, 4, '+');
+        if (text === '5+') animateCounter(el, 5, '+');
         else if (text === '20+') animateCounter(el, 20, '+');
         else if (text === '13+') animateCounter(el, 13, '+');
         else if (text === '100%') animateCounter(el, 100, '%');
